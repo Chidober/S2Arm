@@ -133,9 +133,9 @@ int main(void) {
     }
 
     // ---------- P packaged row alignment: byte 1 of NVNpackagedTextureLayout aligns the row pitch to 2^n GOBs (levels at least that wide only) ----------
-    // Bayonetta 3's packaged textures almost all carry layout bytes 03 04 (block height 8 GOBs, pitch aligned to 16 GOBs). The same 1024×1024 ASTC 6×6 texture as S, not sparse:
+    // 01004A4010FEA000's packaged textures almost all carry layout bytes 03 04 (block height 8 GOBs, pitch aligned to 16 GOBs). The same 1024×1024 ASTC 6×6 texture as S, not sparse:
     // level 0 is 171 block columns = 43 GOBs → 48, level 1 86 → 22 GOBs → 32, level 2 43 → 11 GOBs (< 16, not aligned) — the same padding the sparse tiles give, so the level offsets
-    // equal S's. Read unaligned (level 1 at 0x81000), the padding's all-zero blocks are sampled and ASTC decodes them as magenta (Bayonetta 3's character menu background)
+    // equal S's. Read unaligned (level 1 at 0x81000), the padding's all-zero blocks are sampled and ASTC decodes them as magenta (01004A4010FEA000's character menu background)
     printf("P packaged row alignment (layout byte 1)\n");
     {
         nvn_texdesc d = {1, 0x8B, 0, 0, 1024, 1024, 1, 8, 0, 4 | 5 << 8};

@@ -95,7 +95,7 @@ static uint64_t level_walk(const nvn_texdesc *d, unsigned level, unsigned dpl, u
         tiled = tiled && lwb >= tw * 64 && lh >= 8u << tileH && ld >= 1u << tileD;
         if (tiled) wg = (wg + tw - 1) / tw * tw;
         // Packaged layout byte 1: the row pitch of a level at least 2^n GOBs wide is aligned up to 2^n GOBs; narrower levels are not aligned.
-        // Bayonetta 3's packaged ASTC / BC textures need it; read unaligned, the padding (all zero) is sampled and ASTC decodes it as magenta
+        // Packaged ASTC / BC textures in 01004A4010FEA000 need it; read unaligned, the padding (all zero) is sampled and ASTC decodes it as magenta
         { unsigned pa = (unsigned)(d->pkg_block_h >> 8) & 0xff; if (!tiled && pa > 1) { unsigned a = 1u << (pa - 1); if (wg >= a) wg = (wg + a - 1) / a * a; } }
         if (i == level) { if (gobs) *gobs = wg; return off; }
         uint32_t ht = (hg + (1u << th) - 1) >> th, dt = (ld + (1u << td) - 1) >> td;
